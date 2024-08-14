@@ -8,7 +8,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 // Fonction générique d'envoi d'email
 const sendEmail = async (email, template, subject, ...templateData) => {
   const mailOptions = {
-    from: "benjaminboufflers1@gmail.com",
+    from: "onboarding@resend.dev",
     to: email,
     subject: subject,
     html: template(...templateData),
@@ -27,7 +27,7 @@ const sendEmail = async (email, template, subject, ...templateData) => {
 
 // Mail de confirmation
 const sendConfirmationEmail = async (email, token) => {
-  await sendEmail("benjaminboufflers11@gmail.com", ConfirmationTemplate, "Confirmation d'inscription", {
+  await sendEmail(email, ConfirmationTemplate, "Confirmation d'inscription", {
     email,
     token,
   });
@@ -41,6 +41,7 @@ const sendWelcomeEmail = async (email, token) => {
   });
 };
 
+// Mail de confirmation de commande
 const sendConfirmationOrderEmail = async (content, owner, id) => {
   const lowerCaseEmail = owner.email.toLowerCase();
   await sendEmail(

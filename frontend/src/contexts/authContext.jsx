@@ -44,11 +44,12 @@ export const AuthContextProvider = ({ children }) => {
     refreshLog();
   }, []);
 
+  // Création de compte via google (crée un compte utilisateur en base de données, mais sans mot de passe (car connexion via google))
   const createUserWithGoogle = async (data) => {
     const newUser = {
-      email: data.email,
-      firstname: data?.given_name || undefined,
-      lastname: data?.family_name || undefined,
+      email: data.email, // On recup l'email google
+      firstname: data?.given_name || undefined, // On recup le prénom de la personne renseigné sur le compte google
+      lastname: data?.family_name || undefined, // On recup le nom de la personne renseigné sur le compte google
     };
 
     const response = await fetch('http://localhost:5000/user', {
@@ -99,6 +100,7 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   const loginWithGoogle = async (email) => {
+    console.log("login with google")
     const response = await fetch('http://localhost:5000/user/loginWithGoogle', {
       method: 'POST',
       headers: {
@@ -109,6 +111,7 @@ export const AuthContextProvider = ({ children }) => {
     });
     const status = response.status;
     const datas = await response.json();
+    console.log(datas)
     switch (status) {
       case 200:
         navigate(`/online-ordering`);
@@ -119,6 +122,7 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   const login = async (user) => {
+    console.log("la")
     const response = await fetch('http://localhost:5000/user/login', {
       method: 'POST',
       headers: {

@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { loadStripe } from "@stripe/stripe-js";
-import { Elements } from "@stripe/react-stripe-js";
-import PaymentForm from "./PaymentForm";
+import React, { useContext, useEffect, useState } from 'react';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
+import PaymentForm from './PaymentForm';
+import { CartContext } from '@/contexts/cartContext';
 
 function Payment({ handleStep, checkoutData, setCheckoutData }) {
   const [stripePromise, setStripePromise] = useState(null);
-  const [clientSecret, setClientSecret] = useState("");
+  const [clientSecret, setClientSecret] = useState('');
+  const { cartValue } = useContext(CartContext);
 
   useEffect(() => {
     const fetchPkStripe = async () => {
-      const response = await fetch("http://localhost:5000/stripe/config");
+      const response = await fetch('http://localhost:5000/stripe/config');
       const { publishableKey } = await response.json();
       setStripePromise(loadStripe(publishableKey));
     };
@@ -18,14 +20,14 @@ function Payment({ handleStep, checkoutData, setCheckoutData }) {
 
   useEffect(() => {
     const fetchPaymentIntent = async () => {
-      const response = await fetch(
-        "http://localhost:5000/stripe/create-payment-intent",
-        {
-          method: "POST",
-          credentials: "include",
-          body: JSON.stringify({}),
-        }
-      );
+      const response = await fetch('http://localhost:5000/stripe/create-payment-intent', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({amount: cartValue}),
+      });
       const { clientSecret } = await response.json();
       setClientSecret(clientSecret);
     };

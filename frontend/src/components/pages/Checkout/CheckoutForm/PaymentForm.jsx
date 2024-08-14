@@ -1,17 +1,14 @@
 import { useContext, useState } from "react";
 import { useStripe, useElements } from "@stripe/react-stripe-js";
 import { PaymentElement } from "@stripe/react-stripe-js";
-import { useNavigate } from "react-router-dom";
 import AuthContext from "@/contexts/authContext";
 import { CartContext } from "@/contexts/cartContext";
 
 function PaymentForm({ handleStep, checkoutData, setCheckoutData }) {
   const stripe = useStripe();
   const elements = useElements();
-  const navigate = useNavigate();
-  const { user, auth } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const { cartContent, cartValue, cleanCart } = useContext(CartContext);
-  console.log(checkoutData);
 
   const [message, setMessage] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
