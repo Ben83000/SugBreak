@@ -1,0 +1,37 @@
+[
+  {
+    "name": "Crêpes/Gaufres",
+    "category": "waffle",
+    "offset": -150
+  },
+  {
+    "name": "Pancakes",
+    "category": "pancake",
+    "offset": -100
+  },
+  {
+    "name": "Churros",
+    "category": "churros",
+    "offset": -100
+  },
+  {
+    "name": "Milkshakes",
+    "category": "milkshake",
+    "offset": -100
+  },
+  {
+    "name": "Smoothies",
+    "category": "smoothie",
+    "offset": -100
+  },
+  {
+    "name": "BubbleTea",
+    "category": "bubbletea",
+    "offset": -100
+  },
+  {
+    "name": "Glaces",
+    "category": "icecream",
+    "offset": -150
+  }
+]
