@@ -10,8 +10,6 @@ export const CartContextProvider = ({ children }) => {
   const { auth } = useContext(AuthContext);
   const [lastAction, setLastAction] = useState('');
 
-  console.log(cartContent);
-
   useEffect(() => {
     const fetchCart = async () => {
       if (auth) {
@@ -63,7 +61,7 @@ export const CartContextProvider = ({ children }) => {
       });
       if (response.ok) {
         const datas = await response.json();
-        notify("Ajouté au panier.", 'success');
+        notify('Ajouté au panier.', 'success');
         updateCart(datas.cart);
       }
     } else {
@@ -90,7 +88,7 @@ export const CartContextProvider = ({ children }) => {
           }
         });
         updateCart(guestCart); // le panier est mis à jour
-        notify("Ajouté au panier.", 'success');
+        notify('Ajouté au panier.', 'success');
         localStorage.setItem('guestCart', JSON.stringify(guestCart)); // mise a jour du panier invite ds le localstorage
         // Si aucun produit n'a été trouvé deja existant ds le panier, alors on l'ajoute
       } else {
@@ -103,12 +101,18 @@ export const CartContextProvider = ({ children }) => {
           },
         ];
         updateCart(guestCart); // mise à jour du panier
-        notify("Ajouté au panier.", 'success');
+        notify('Ajouté au panier.', 'success');
         localStorage.setItem('guestCart', JSON.stringify(guestCart)); // mise à jour du panier invité ds le localstorage
       }
     }
   };
 
+  /**
+   * Add a custom product to cart
+   * @param {object} product The product to add to cart
+   * @param {object} data Customisation of the product ({base, topping..})
+   * @param {number} totalPrice The total price of the product with the customisation
+   */
   const addToCartCustom = async (product, data, totalPrice) => {
     if (auth) {
       const response = await fetch(`http://localhost:5000/cart/add/custom/${product._id}/${totalPrice}`, {
@@ -122,7 +126,7 @@ export const CartContextProvider = ({ children }) => {
       if (response.ok) {
         const datas = await response.json();
         updateCart(datas.cart);
-        notify("Ajouté au panier.", 'success');
+        notify('Ajouté au panier.', 'success');
       }
     } else {
       const guestCart = [
@@ -134,7 +138,7 @@ export const CartContextProvider = ({ children }) => {
         },
       ];
       updateCart(guestCart);
-      notify("Ajouté au panier.", 'success');
+      notify('Ajouté au panier.', 'success');
       localStorage.setItem('guestCart', JSON.stringify(guestCart));
     }
   };
@@ -143,13 +147,13 @@ export const CartContextProvider = ({ children }) => {
     // Si l'utilisateur est authentifié (et donc connecté) on vide son panier coté back
     if (auth) {
       try {
-        const response = await fetch(`http://localhost:5000/cart/clean/`, {
+        const response = await fetch(`http://localhost:5000/cart/clean`, {
           method: 'PATCH',
           credentials: 'include',
         });
-        const data = await response.json();
-        console.log(data);
-        updateCart([]); // panier mis à jour avec un tableau vide
+        if (response.ok) {
+          updateCart([]); // panier mis à jour avec un tableau vide
+        }
       } catch (error) {
         console.log(error);
       }

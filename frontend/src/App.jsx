@@ -108,7 +108,14 @@ function App() {
                             }
                           />
                           <Route path="/checkout" element={<CheckoutPage />} />
-                          <Route path="/Completion" element={<Completion />} />
+                          <Route
+                            path="/completion"
+                            element={
+                              <MainLayout>
+                                <Completion />
+                              </MainLayout>
+                            }
+                          />
                           <Route
                             path="/orders"
                             element={

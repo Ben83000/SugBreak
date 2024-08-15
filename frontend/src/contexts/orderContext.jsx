@@ -8,8 +8,6 @@ export const OrderContextProvider = ({ children }) => {
   const [userOrders, setUserOrders] = useState([{}]);
   const [orders, setOrders] = useState([{}]);
 
-  console.log(orders)
-
   useEffect(() => {
     const fetchOrdersFromUser = async () => {
       if (auth) {

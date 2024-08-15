@@ -4,13 +4,13 @@ import formatPrice from "@/tools/formatPrice";
 import formatDate from "@/tools/formatDate";
 import React, { useContext } from "react";
 import { ModalContext } from "@/contexts/modalContext";
-import OrderContent from "@/components/Modal/OrderContent/OrderContent";
+import OrderContentModal from "@/components/Modal/OrderContent/OrderContentModal";
 
 function Order({ item, index }) {
   const { openModal } = useContext(ModalContext);
 
   const handleClick = (e) => {
-    openModal(<OrderContent orderContent={item?.content} />, e.clientX, e.clientY, 3)
+    openModal(<OrderContentModal orderContent={item?.content} />, e.clientX, e.clientY, 3)
   };
 
   const orderDetails = [
