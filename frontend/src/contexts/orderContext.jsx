@@ -53,7 +53,6 @@ export const OrderContextProvider = ({ children }) => {
    * @param {String} status Status to update the order: "pending", "preparing", "completed", "cancelled"
    */
   const updateOrder = async (orderId, status) => {
-    console.log('la');
     const response = await fetch(`http://localhost:5000/order/update/${orderId}/${status}`, {
       method: 'PATCH',
       credentials: 'include',
@@ -62,7 +61,6 @@ export const OrderContextProvider = ({ children }) => {
       },
     });
     const data = await response.json();
-    console.log(data);
     setOrders(data.ordersUpdated);
   };
 

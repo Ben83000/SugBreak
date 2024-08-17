@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { ModalContext } from '@/contexts/modalContext';
 import Confirmation from '@/components/Modal/Confirm/Confirmation';
+import calculateDiffInMin from '@/tools/calculateDiffInMin';
 
 function OrderScreenPage() {
   const { orders, updateOrder } = useContext(OrderContext);
@@ -30,17 +31,19 @@ function OrderScreenPage() {
     );
   };
 
-  console.log(formatDateToTime(Date.now()))
+  
 
   return (
-    <section className="flex flex-grow bg-amber-100 flex-nowrap p-2 gap-2 w-max">
+    <section className="flex flex-grow bg-amber-100 flex-nowrap p-2 overflow-x-scroll gap-2">
       {orders?.map(
-        (item, index) =>
-          item?.status === 'pending' && (
-            <div key={item._id} className="bg-white/70 w-96 min-h-96 flex flex-col flex-shrink-0">
+        (item, index) => 
+          {
+            console.log(calculateDiffInMin(Date.now(), new Date(item?.date)))
+            if (item?.status === 'pending')  return (
+            <div key={item._id} className="bg-white/70 min-w-96 min-h-full h-min flex flex-col flex-shrink-0">
               <div
                 className={cn('w-full bg-amber-200 pt-4 pl-4 pr-4 pb-1 relative', {
-                  'bg-red-500': Date.now() - new Date(item.date) > 20,
+                  'bg-red-500': calculateDiffInMin(Date.now(), new Date(item?.date)) > 15, // Si ça fait + de 15min que la commande est à l'ecran, elle apparait en rouge
                 })}>
                 <p className="text-3xl underline underline-offset-4">
                   Commande N°{item.id} à {formatDateToTime(item.date)}
@@ -74,7 +77,6 @@ function OrderScreenPage() {
                       <div className="flex flex-col leading-none w-full col-span-7">
                         {item?.product?.custom ? (
                           Object.keys(item?.customisation).map((customTitle, index) => {
-                            console.log(item);
                             return (
                               <div key={index} className="flex items-center gap-1 flex-wrap">
                                 <h2 className="capitalize text-2xl underline ">
@@ -101,7 +103,7 @@ function OrderScreenPage() {
                 })}
               </div>
             </div>
-          )
+          )}
       )}
     </section>
   );
