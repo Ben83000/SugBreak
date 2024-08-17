@@ -31,6 +31,7 @@ function OrderScreenPage() {
     );
   };
 
+console.log("test")
   
 
   return (
