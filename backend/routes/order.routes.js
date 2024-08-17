@@ -6,6 +6,16 @@ import { isAuthentificated } from '../auth/auth.js';
 
 const router = express.Router();
 
+// router.delete('/delete/all', async (req, res) => {
+//   try {
+//     await orderModel.deleteMany({});
+//     res.status(200).json({ message: 'Orders deleted' });
+//   } catch (error) {
+//     console.log(error);
+//     res.json({ error });
+//   }
+// });
+
 // Route de creation d'une nouvelle commande
 router.post('/add', async (req, res) => {
   try {
@@ -55,6 +65,24 @@ router.get('/user', isAuthentificated, async (req, res) => {
     }
   } catch (error) {
     res.status(500).json({ message: 'Problème serveur, veuillez réessayer.', error: error });
+  }
+});
+
+router.patch('/update/:orderId/:updatedStatus', async (req, res) => {
+  try {
+    const { orderId, updatedStatus } = req.params;
+    const orderUpdated = await orderModel.findOneAndUpdate({ _id: orderId }, { status: updatedStatus }, { new: true });
+    
+    console.log(orderUpdated)
+    if (orderUpdated) {
+      const ordersUpdated = await orderModel.find();
+      res.status(200).json({ message: 'Mise à jour effectuée avec succés', ordersUpdated: ordersUpdated });
+    } else {
+      res.status(404)
+        .json({ message: 'Erreur de connexion avec la base de données, veuillez contacter votre administrateur.' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Erreur serveur', error: error });
   }
 });
 

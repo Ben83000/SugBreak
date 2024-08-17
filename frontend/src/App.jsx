@@ -10,7 +10,6 @@ import LoginPage from '@/components/pages/Profile/LoginPage';
 import ProfilePage from '@/components/pages/Profile/ProfilePage';
 import MainLayout from '@/components/layouts/Main/MainLayout';
 import SecondaryLayout from '@/components/layouts/Secondary/SecondaryLayout';
-import DashboardPage from '@/components/pages/DashboardAdmin/DashboardPage';
 import Modal from '@/components/Modal/Modal';
 import CheckoutPage from '@/components/pages/Checkout/CheckoutPage';
 import { DeliveryContextProvider } from '@/contexts/deliveryContext';
@@ -24,6 +23,9 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import Completion from './components/pages/Checkout/CheckoutForm/Completion';
 import OrdersPage from './components/pages/Orders/OrdersPage';
 import { OrderContextProvider } from './contexts/orderContext';
+import AdminRoute from './components/routes/AdminRoute';
+import OrderScreenPage from './components/pages/Admin/OrderScreen/OrderScreenPage';
+import OrdersAdminPage from './components/pages/Admin/OrdersAdmin/OrdersAdminPage';
 
 function App() {
   return (
@@ -98,13 +100,23 @@ function App() {
                             }
                           />
                           <Route
-                            path="/dashboard"
+                            path="/admin/orderScreen"
                             element={
-                              <ProtectedRoute redirectTo="/">
+                              <AdminRoute redirectTo="/">
                                 <MainLayout>
-                                  <DashboardPage />
+                                  <OrderScreenPage />
                                 </MainLayout>
-                              </ProtectedRoute>
+                              </AdminRoute>
+                            }
+                          />
+                          <Route
+                            path="/admin/orders"
+                            element={
+                              <AdminRoute redirectTo="/">
+                                <MainLayout>
+                                  <OrdersAdminPage />
+                                </MainLayout>
+                              </AdminRoute>
                             }
                           />
                           <Route path="/checkout" element={<CheckoutPage />} />

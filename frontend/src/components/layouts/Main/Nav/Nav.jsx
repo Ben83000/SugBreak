@@ -26,14 +26,14 @@ function Nav({ transparent }) {
   };
 
   return (
-    <nav className={cn('flex w-full sticky top-0 z-50 h-14 bg-black ', transparent && 'bg-transparent')}>
+    <nav className={cn('flex w-full fixed top-0 left-0 right-0  z-50 h-14 bg-black ', transparent && 'bg-transparent')}>
       <ul className="flex items-center px-6 h-full gap-4 w-full">
         <li>
           <Link to="/">
             <img src={logo} alt="logo" className="h-12" />
           </Link>
         </li>
-        {!admin && (
+        {admin && (
           <li className="flex gap-2 items-center text-white uppercase">
             <p>Mode Admin</p>
             <Switch checked={adminMode} onCheckedChange={toggleAdminMode} className="" />
@@ -105,6 +105,23 @@ function Nav({ transparent }) {
                         <p>Mes commandes</p>
                       </Link>
                     </SheetClose>
+                    {admin && (
+                      <>
+                        <Separator className="bg-pink-500 w-3/4 ml-auto" />
+                        <SheetClose asChild>
+                          <Link to="/admin/orderScreen" className="grid grid-cols-sheet text-slate-100 hover:text-pink-300">
+                            <ScrollTextLine />
+                            <p>Affichage des commandes</p>
+                          </Link>
+                        </SheetClose>
+                        <SheetClose asChild>
+                          <Link to="/admin/orders" className="grid grid-cols-sheet text-slate-100 hover:text-pink-300">
+                            <ScrollTextLine />
+                            <p>Liste des commandes</p>
+                          </Link>
+                        </SheetClose>
+                      </>
+                    )}
                     <Button onClick={handleLogout} className="w-1/2 self-center text-2xl">
                       Déconnexion
                     </Button>

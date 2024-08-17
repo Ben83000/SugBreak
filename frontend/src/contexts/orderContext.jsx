@@ -1,5 +1,5 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import AuthContext from "./authContext";
+import { createContext, useContext, useEffect, useState } from 'react';
+import AuthContext from './authContext';
 
 export const OrderContext = createContext();
 
@@ -27,35 +27,52 @@ export const OrderContextProvider = ({ children }) => {
   }, []);
 
   const getUserOrders = async () => {
-    const response = await fetch("http://localhost:5000/order/user", {
-      credentials: "include",
+    const response = await fetch('http://localhost:5000/order/user', {
+      credentials: 'include',
     });
-    console.log(response);
+    const data = await response.json();
+    return data.orders;
+  };
+
+  /**
+   * get all orders
+   * @returns all orders
+   */
+  const getOrders = async () => {
+    const response = await fetch('http://localhost:5000/order/all', {
+      credentials: 'include',
+    });
     const data = await response.json();
     console.log(data);
     return data.orders;
   };
 
   /**
-   * get all orders
-   * @returns all orders 
+   * Update an order
+   * @param {number} orderId Order's id to update
+   * @param {String} status Status to update the order: "pending", "preparing", "completed", "cancelled"
    */
-  const getOrders = async () => {
-    const response = await fetch("http://localhost:5000/order/all", {
-      credentials: "include",
+  const updateOrder = async (orderId, status) => {
+    console.log('la');
+    const response = await fetch(`http://localhost:5000/order/update/${orderId}/${status}`, {
+      method: 'PATCH',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
     const data = await response.json();
     console.log(data);
-    return data.orders;
+    setOrders(data.ordersUpdated);
   };
 
   return (
     <OrderContext.Provider
       value={{
         userOrders,
-        orders
-      }}
-    >
+        orders,
+        updateOrder,
+      }}>
       {children}
     </OrderContext.Provider>
   );
