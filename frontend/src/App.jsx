@@ -25,7 +25,6 @@ import OrdersPage from './components/pages/Orders/OrdersPage';
 import { OrderContextProvider } from './contexts/orderContext';
 import AdminRoute from './components/routes/AdminRoute';
 import OrderScreenPage from './components/pages/Admin/OrderScreen/OrderScreenPage';
-import OrdersAdminPage from './components/pages/Admin/OrdersAdmin/OrdersAdminPage';
 
 function App() {
   return (
@@ -105,16 +104,6 @@ function App() {
                               <AdminRoute redirectTo="/">
                                 <MainLayout>
                                   <OrderScreenPage />
-                                </MainLayout>
-                              </AdminRoute>
-                            }
-                          />
-                          <Route
-                            path="/admin/orders"
-                            element={
-                              <AdminRoute redirectTo="/">
-                                <MainLayout>
-                                  <OrdersAdminPage />
                                 </MainLayout>
                               </AdminRoute>
                             }

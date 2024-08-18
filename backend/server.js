@@ -1,10 +1,8 @@
-// server.js
-
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
-import { Server as socketIo } from 'socket.io'; // Correct import
+import { Server as socketIo } from 'socket.io';
 import http from 'http';
 import dotenv from 'dotenv';
 
@@ -24,7 +22,7 @@ const port = process.env.PORT || 5000;
 // Créer un serveur HTTP
 const server = http.createServer(app);
 
-// Initialiser Socket.IO avec le serveur HTTP
+// Initialise Socket.IO avec le serveur HTTP
 const io = new socketIo(server, {
   cors: {
     origin: "http://localhost:5173",
@@ -51,13 +49,13 @@ const connectDB = async () => {
 
     // se connecte et Surveille la collection 'orders' dans mongodb
     const orderCollection = mongoose.connection.collection('orders');
-    const changeStream = orderCollection.watch();
+    const changeStream = orderCollection.watch(); 
 
     // dés qu'un changement est detecté dans la collection orders..
     changeStream.on('change', (change) => { // "change" est le changement effectué (par ex pour une insertion, cest le nouveau doc)
       if (change.operationType === 'insert') {
         const newOrder = change.fullDocument; // on recup le nouveau doc
-        // Diffuser la nouvelle commande à tous les clients Socket.IO
+        // on diffuse la nouvelle commande à tous les clients Socket.IO
         io.emit('newOrder', newOrder); // on l'envoie a tous les clients (front) qui ecoute les emissions nommées 'newOrder'
       }
     });
@@ -67,7 +65,7 @@ const connectDB = async () => {
   }
 };
 
-// Configurer les middlewares Express
+// Middlewares express
 app.use(
   cors({
     origin: "http://localhost:5173",
@@ -86,7 +84,7 @@ app.use("/cart", cartRoutes);
 app.use("/stripe", stripeRoutes);
 app.use("/order", orderRoutes);
 
-// Démarrer le serveur HTTP et Socket.IO
+// Démarre le serveur HTTP et Socket.IO sur le port
 server.listen(port, () => {
   console.log(`Server and Socket.IO running on http://localhost:${port}`);
 });

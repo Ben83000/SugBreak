@@ -16,10 +16,8 @@ function OrderScreenPage() {
   // On provoque un rendu chaque min pour changer la couleur automatique de la commande si ca depasse 15min
   useEffect(() => {
     const intervalId = setInterval(() => {
-      console.log("la")
-      setCurrentTime(Date.now())
+      setCurrentTime(Date.now()) // on provoque un changement d'etat local pour provoquer un re rendu chaque min
     }, 60000); // 1 minute
-
     return () => clearInterval(intervalId); // Nettoyage de l'interval au demontage
   }, []);
 
@@ -29,7 +27,6 @@ function OrderScreenPage() {
   };
 
   const handleClick = (e, item) => {
-    console.log(item);
     openModal(
       <Confirmation
         confirmationMessage={`Valider la commande N°${item?.id} ?`}
@@ -45,13 +42,12 @@ function OrderScreenPage() {
   return (
     <section className="flex flex-grow bg-amber-100 flex-nowrap p-2 overflow-x-scroll gap-2">
       {orders?.map((item, index) => {
-        console.log(calculateDiffInMin(currentTime, new Date(item?.date)));
         if (item?.status === 'pending')
           return (
             <div key={item._id} className="bg-white/70 min-w-96 min-h-full h-min flex flex-col flex-shrink-0">
               <div
                 className={cn('w-full bg-amber-200 pt-4 pl-4 pr-4 pb-1 relative', {
-                  'bg-red-500': calculateDiffInMin(Date.now(), new Date(item?.date)) > 1, // Si ça fait + de 15min que la commande est à l'ecran, elle apparait en rouge
+                  'bg-red-500': calculateDiffInMin(currentTime, new Date(item?.date)) > 15, // Si ça fait + de 15min que la commande est à l'ecran, elle apparait en rouge
                 })}>
                 <p className="text-3xl underline underline-offset-4">
                   Commande N°{item.id} à {formatDateToTime(item.date)}
@@ -104,7 +100,6 @@ function OrderScreenPage() {
                           <p className="text-2xl">{item.product.name}</p>
                         )}
                       </div>
-
                       <p className="text-2xl ml-auto col-span-1"> x{item.quantity} </p>
                     </div>
                   );

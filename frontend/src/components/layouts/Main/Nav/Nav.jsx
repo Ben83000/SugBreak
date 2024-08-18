@@ -19,14 +19,14 @@ import { CartContext } from '@/contexts/cartContext';
 function Nav({ transparent }) {
   const { auth, logout, user, admin } = useContext(AuthContext);
   const { toggleAdminMode, adminMode } = useContext(AdminContext);
-  const { cartContent, cartValue } = useContext(CartContext);
+  const { cartValue } = useContext(CartContext);
 
   const handleLogout = async () => {
     await logout();
   };
 
   return (
-    <nav className={cn('flex w-full fixed top-0 left-0 right-0  z-50 h-14 bg-black ', transparent && 'bg-transparent')}>
+    <nav className={cn('flex w-full fixed top-0 left-0 right-0 z-50 h-14 bg-black', transparent && 'bg-transparent')}>
       <ul className="flex items-center px-6 h-full gap-4 w-full">
         <li>
           <Link to="/">
@@ -112,12 +112,6 @@ function Nav({ transparent }) {
                           <Link to="/admin/orderScreen" className="grid grid-cols-sheet text-slate-100 hover:text-pink-300">
                             <ScrollTextLine />
                             <p>Affichage des commandes</p>
-                          </Link>
-                        </SheetClose>
-                        <SheetClose asChild>
-                          <Link to="/admin/orders" className="grid grid-cols-sheet text-slate-100 hover:text-pink-300">
-                            <ScrollTextLine />
-                            <p>Liste des commandes</p>
                           </Link>
                         </SheetClose>
                       </>
