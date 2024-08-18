@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import AuthContext from './authContext';
+import { io } from 'socket.io-client';
 
 export const OrderContext = createContext();
 
@@ -7,6 +8,22 @@ export const OrderContextProvider = ({ children }) => {
   const { auth } = useContext(AuthContext);
   const [userOrders, setUserOrders] = useState([{}]);
   const [orders, setOrders] = useState([{}]);
+  const [socket, setSocket] = useState(null);
+
+  useEffect(() => {
+    const socketIo = io('http://localhost:5000'); // Connexion au serveur socket
+    setSocket(socketIo);
+
+    // On ecoute les events nommées 'newOrder'
+    socketIo.on('newOrder', (newOrder) => {
+      setOrders((prevOrders) => [...prevOrders, newOrder]); // des qu'un event 'newOrder' est reçu par le serveur, on met a jour les orders
+    });
+
+    // Nettoyage lors du démontage du composant
+    return () => {
+      socketIo.disconnect(); // Déconnecter le socket lors du démontage
+    };
+  }, []);
 
   useEffect(() => {
     const fetchOrdersFromUser = async () => {
