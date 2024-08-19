@@ -21,7 +21,6 @@ export function ProductContextProvider({ children }) {
 
   const getProduct = async (filter, query) => {
     setLoading(true);
-    console.log(config.apiUrl);
     try {
       const response = await fetch(`${config.apiUrl}/product/search?${filter}=${query}`);
       const product = await response.json();
