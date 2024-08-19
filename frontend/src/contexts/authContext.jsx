@@ -101,7 +101,6 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   const loginWithGoogle = async (email) => {
-    console.log("login with google")
     const response = await fetch(`${config.apiUrl}/user/loginWithGoogle`, {
       method: 'POST',
       headers: {
@@ -123,7 +122,6 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   const login = async (user) => {
-    console.log("la")
     const response = await fetch(`${config.apiUrl}/user/login`, {
       method: 'POST',
       headers: {
@@ -139,7 +137,6 @@ export const AuthContextProvider = ({ children }) => {
         navigate(`/online-ordering`);
         setAuth(true);
         setUser(datas.user);
-
         if (datas.user.isAdmin) {
           setAdmin(true);
         }

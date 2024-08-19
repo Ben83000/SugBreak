@@ -36,8 +36,6 @@ function Shipping({ handleStep, checkoutData, setCheckoutData }) {
     lng: 2.4588404,
   };
 
-  console.log(deliveryMode);
-
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: API_GOOGLE,
     libraries: ["marker"],
@@ -62,7 +60,7 @@ function Shipping({ handleStep, checkoutData, setCheckoutData }) {
         onChange={handleChange}
       >
         <option value="takeaway">Retrait sur place</option>
-        <option value="delivery">Livraison (Bientôt disponible)</option>
+        <option disabled value="delivery">Livraison (Bientôt disponible)</option>
       </select>
       <section className="flex w-2/3 lg:w-1/2">
         {deliveryMode === "takeaway" ? (
