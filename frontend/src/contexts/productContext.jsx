@@ -13,7 +13,7 @@ export function ProductContextProvider({ children }) {
   }, []);
 
   const getProducts = async () => {
-    const response = await fetch(`${config.apiUrl}product`);
+    const response = await fetch(`${config.apiUrl}/product`);
     const datas = await response.json();
     setProducts(datas);
   };
@@ -22,7 +22,7 @@ export function ProductContextProvider({ children }) {
     setLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:5000/product/search?${filter}=${query}`
+        `${config.apiUrl}/product/search?${filter}=${query}`
       );
       const product = await response.json();
       setLoading(false);
@@ -51,7 +51,7 @@ export function ProductContextProvider({ children }) {
   const updateProdut = async (id, data) => {
     try {
       const response = await fetch(
-        `${config.apiUrl}product/update/${id}`,
+        `${config.apiUrl}/product/update/${id}`,
         {
           method: "PATCH",
           credentials: "include",
@@ -72,7 +72,7 @@ export function ProductContextProvider({ children }) {
 
   const deleteProduct = async (id) => {
     try {
-      const response = await fetch(`${config.apiUrl}product/${id}`, {
+      const response = await fetch(`${config.apiUrl}/product/${id}`, {
         method: "DELETE",
         credentials: "include",
         headers: {
@@ -92,7 +92,7 @@ export function ProductContextProvider({ children }) {
 
   const addProduct = async (product) => {
     try {
-      const response = await fetch(`${config.apiUrl}product`, {
+      const response = await fetch(`${config.apiUrl}/product`, {
         method: "POST",
         credentials: "include",
         headers: {
