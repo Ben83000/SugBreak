@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from 'react';
 import config from '@/config/config.js';
 export const ProductContext = createContext();
 
@@ -17,13 +17,13 @@ export function ProductContextProvider({ children }) {
     const datas = await response.json();
     setProducts(datas);
   };
+  console.log(config);
 
   const getProduct = async (filter, query) => {
     setLoading(true);
+    console.log(config.apiUrl);
     try {
-      const response = await fetch(
-        `${config.apiUrl}/product/search?${filter}=${query}`
-      );
+      const response = await fetch(`${config.apiUrl}/product/search?${filter}=${query}`);
       const product = await response.json();
       setLoading(false);
       return product;
@@ -50,17 +50,14 @@ export function ProductContextProvider({ children }) {
 
   const updateProdut = async (id, data) => {
     try {
-      const response = await fetch(
-        `${config.apiUrl}/product/update/${id}`,
-        {
-          method: "PATCH",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
-      );
+      const response = await fetch(`${config.apiUrl}/product/update/${id}`, {
+        method: 'PATCH',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
       const datas = await response.json();
       const productsUpdated = datas.products;
       setProducts(productsUpdated);
@@ -73,10 +70,10 @@ export function ProductContextProvider({ children }) {
   const deleteProduct = async (id) => {
     try {
       const response = await fetch(`${config.apiUrl}/product/${id}`, {
-        method: "DELETE",
-        credentials: "include",
+        method: 'DELETE',
+        credentials: 'include',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       });
       if (response.ok) {
@@ -93,10 +90,10 @@ export function ProductContextProvider({ children }) {
   const addProduct = async (product) => {
     try {
       const response = await fetch(`${config.apiUrl}/product`, {
-        method: "POST",
-        credentials: "include",
+        method: 'POST',
+        credentials: 'include',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(product),
       });
@@ -126,8 +123,7 @@ export function ProductContextProvider({ children }) {
         handleProductToModify,
         updateProductToModify,
         loading,
-      }}
-    >
+      }}>
       {children}
     </ProductContext.Provider>
   );
