@@ -6,7 +6,12 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon server",
-    "start": "node server"
+    "start": "node server",
+    "heroku-postbuild": "npm install --prefix frontend && npm run build --prefix frontend"
+  },
+  "engines": {
+    "node": "20.11.1",
+    "npm": "10.2.4"
   },
   "keywords": [],
   "author": "",
