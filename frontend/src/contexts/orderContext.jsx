@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import AuthContext from './authContext';
 import { io } from 'socket.io-client';
+import config from '@/config/config';
 
 export const OrderContext = createContext();
 
@@ -11,7 +12,7 @@ export const OrderContextProvider = ({ children }) => {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    const socketIo = io('http://localhost:5000'); // Connexion au serveur socket
+    const socketIo = io(`${config.apiUrl}`); // Connexion au serveur socket
     setSocket(socketIo);
 
     // On ecoute les events nommées 'newOrder'
@@ -44,7 +45,7 @@ export const OrderContextProvider = ({ children }) => {
   }, []);
 
   const getUserOrders = async () => {
-    const response = await fetch('http://localhost:5000/order/user', {
+    const response = await fetch(`${config.apiUrl}/order/user`, {
       credentials: 'include',
     });
     const data = await response.json();
@@ -56,7 +57,7 @@ export const OrderContextProvider = ({ children }) => {
    * @returns all orders
    */
   const getOrders = async () => {
-    const response = await fetch('http://localhost:5000/order/all', {
+    const response = await fetch(`${config.apiUrl}/order/all`, {
       credentials: 'include',
     });
     const data = await response.json();
@@ -70,7 +71,7 @@ export const OrderContextProvider = ({ children }) => {
    * @param {String} status Status to update the order: "pending", "preparing", "completed", "cancelled"
    */
   const updateOrder = async (orderId, status) => {
-    const response = await fetch(`http://localhost:5000/order/update/${orderId}/${status}`, {
+    const response = await fetch(`${config.apiUrl}/order/update/${orderId}/${status}`, {
       method: 'PATCH',
       credentials: 'include',
       headers: {

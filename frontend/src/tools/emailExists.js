@@ -1,3 +1,5 @@
+import config from "@/config/config";
+
 export default async function emailExists(value, email, setEmail) {
   const isValid = /\S+@\S+\.\S+/.test(value);
   /*
@@ -9,7 +11,7 @@ export default async function emailExists(value, email, setEmail) {
   if (isValid && value !== email.value) {
     try {
       const response = await fetch(
-        `http://localhost:5000/user/${encodeURIComponent(value)}` 
+        `${config.apiUrl}/user/${encodeURIComponent(value)}` 
       );
       if (response.status === 200) {
         console.log(response.status)

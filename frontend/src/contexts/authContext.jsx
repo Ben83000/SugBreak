@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import notify from '@/tools/notify';
+import config from '@/config/config';
 
 const AuthContext = createContext();
 
@@ -15,7 +16,7 @@ export const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     async function refreshLog() {
       try {
-        const response = await fetch('http://localhost:5000/user/profile', {
+        const response = await fetch(`${config.apiUrl}/user/profile`, {
           credentials: 'include',
         });
         if (response.ok) {
@@ -52,7 +53,7 @@ export const AuthContextProvider = ({ children }) => {
       lastname: data?.family_name || undefined, // On recup le nom de la personne renseigné sur le compte google
     };
 
-    const response = await fetch('http://localhost:5000/user', {
+    const response = await fetch(`${config.apiUrl}/user`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -67,7 +68,7 @@ export const AuthContextProvider = ({ children }) => {
       email: data.email,
       password: data.password,
     };
-    const response = await fetch('http://localhost:5000/user', {
+    const response = await fetch(`${config.apiUrl}/user`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -84,7 +85,7 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   const updateUser = async (data) => {
-    const response = await fetch(`http://localhost:5000/user/${encodeURIComponent(user.email)}`, {
+    const response = await fetch(`${config.apiUrl}/user/${encodeURIComponent(user.email)}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -101,7 +102,7 @@ export const AuthContextProvider = ({ children }) => {
 
   const loginWithGoogle = async (email) => {
     console.log("login with google")
-    const response = await fetch('http://localhost:5000/user/loginWithGoogle', {
+    const response = await fetch(`${config.apiUrl}/user/loginWithGoogle`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -123,7 +124,7 @@ export const AuthContextProvider = ({ children }) => {
 
   const login = async (user) => {
     console.log("la")
-    const response = await fetch('http://localhost:5000/user/login', {
+    const response = await fetch(`${config.apiUrl}/user/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -154,7 +155,7 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   const logout = async () => {
-    await fetch('http://localhost:5000/user/logout', {
+    await fetch(`${config.apiUrl}/user/logout`, {
       method: 'POST',
       credentials: 'include',
     });
@@ -167,7 +168,7 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   const sendEmailConfirmation = async (email) => {
-    const resp = await fetch('http://localhost:5000/user/emailConfirmation', {
+    const resp = await fetch(`${config.apiUrl}/user/emailConfirmation`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -76,8 +76,6 @@ function AddProductForm() {
     inputFileRef.current.click();
   };
 
-  console.log(errors);
-
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}

@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import AuthContext from '@/contexts/authContext';
 import notify from '@/tools/notify';
+import config from '@/config/config';
 
 export const CartContext = createContext();
 
@@ -39,7 +40,7 @@ export const CartContextProvider = ({ children }) => {
   };
 
   const getCart = async () => {
-    const response = await fetch('http://localhost:5000/cart', {
+    const response = await fetch(`${config.apiUrl}/cart`, {
       credentials: 'include',
     });
     if (response.ok) {
@@ -52,7 +53,7 @@ export const CartContextProvider = ({ children }) => {
 
   const addToCart = async (product, base, totalPrice) => {
     if (auth) {
-      const response = await fetch(`http://localhost:5000/cart/add/${product._id}/${base}/${totalPrice}`, {
+      const response = await fetch(`${config.apiUrl}/cart/add/${product._id}/${base}/${totalPrice}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -115,7 +116,7 @@ export const CartContextProvider = ({ children }) => {
    */
   const addToCartCustom = async (product, data, totalPrice) => {
     if (auth) {
-      const response = await fetch(`http://localhost:5000/cart/add/custom/${product._id}/${totalPrice}`, {
+      const response = await fetch(`${config.apiUrl}/cart/add/custom/${product._id}/${totalPrice}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -147,7 +148,7 @@ export const CartContextProvider = ({ children }) => {
     // Si l'utilisateur est authentifié (et donc connecté) on vide son panier coté back
     if (auth) {
       try {
-        const response = await fetch(`http://localhost:5000/cart/clean`, {
+        const response = await fetch(`${config.apiUrl}/cart/clean`, {
           method: 'PATCH',
           credentials: 'include',
         });
@@ -172,7 +173,7 @@ export const CartContextProvider = ({ children }) => {
   const handleQuantity = async (id, action) => {
     setLastAction(action);
     if (auth) {
-      const response = await fetch(`http://localhost:5000/cart/${id}/${action}`, {
+      const response = await fetch(`${config.apiUrl}/cart/${id}/${action}`, {
         method: 'PATCH',
         credentials: 'include',
       });

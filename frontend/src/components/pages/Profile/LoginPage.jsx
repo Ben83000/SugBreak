@@ -41,7 +41,6 @@ function LoginPage() {
     },
   });
 
-  console.log(errorAuth.message)
   const onSubmit = async (data) => {
     await login(data);
   };

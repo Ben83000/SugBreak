@@ -25,8 +25,6 @@ function ProductCrossSell({ product, reduc }) {
   const [oldPrice, setOldPrice] = useState(0);
   const { name, imageUrl, description, category, price } = product;
 
- console.log(oldPrice)
-
  useEffect(() => {
   setOldPrice(product?.price);
   
