@@ -5,6 +5,9 @@
   "dependencies": {
     "react-slick": "^0.30.2"
   },
+  "scripts": {
+    "heroku-postbuild": "npm install --prefix frontend && npm run build --prefix frontend"
+  },
   "engines": {
     "node": "20.11.1",
     "npm": "10.2.4"
