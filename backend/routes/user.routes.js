@@ -233,7 +233,6 @@ router.post('/login', async (req, res) => {
         expiresIn: '72h',
       });
       console.log('Generating token..');
-      console.log(token);
       // on le stocke dans les cookies pdt 72h
       res.cookie('token', token, {
         httpOnly: true,
