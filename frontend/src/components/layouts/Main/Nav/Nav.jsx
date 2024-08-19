@@ -26,7 +26,7 @@ function Nav({ transparent }) {
   };
 
   return (
-    <nav className={cn('flex w-full fixed top-0 left-0 right-0 z-50 h-14 bg-black', transparent && 'bg-transparent')}>
+    <nav className={cn('flex w-full select-none fixed top-0 left-0 right-0 z-50 h-14 bg-black', transparent && 'bg-transparent')}>
       <ul className="flex items-center px-6 h-full gap-4 w-full">
         <li>
           <Link to="/">
@@ -42,7 +42,7 @@ function Nav({ transparent }) {
 
         <motion.li className="md:hidden ml-auto">
           <Sheet>
-            <SheetTrigger className="uppercase font-semibold flex text-pink-400">
+            <SheetTrigger className="uppercase font-semibold flex text-pink-400 select-none">
               <AnimatePresence mode="popLayout">
                 <motion.div
                   initial={{ x: -5 }}
@@ -64,7 +64,7 @@ function Nav({ transparent }) {
               onOpenAutoFocus={(e) => e.preventDefault()}
               className="min-w-[300px] max-sm:w-screen font-rancho h-screen text-2xl flex flex-col gap-2 bg-amber-100 p-0">
               <SheetHeader className="flex items-center justify-center p-4 shadow-custom-dark">
-                <SheetTitle className="font-carter flex gap-1 text-center text-pink-500 bg-amber-100 p-0 leading-none text-2xl">
+                <SheetTitle className="font-carter select-none flex gap-1 text-center text-pink-500 bg-amber-100 p-0 leading-none text-2xl">
                   Votre panier
                 </SheetTitle>
               </SheetHeader>
@@ -75,13 +75,13 @@ function Nav({ transparent }) {
 
         <li className="md:ml-auto">
           <Sheet>
-            <SheetTrigger className="flex uppercase text-pink-400 font-semibold gap-1.5 items-center">
+            <SheetTrigger className="flex uppercase select-none text-pink-400 font-semibold gap-1.5 items-center">
               <FontAwesomeIcon size="lg" icon={faUser} />
               <p className="text-lg max-md:hidden">Mon compte</p>
             </SheetTrigger>
             <SheetContent
               onOpenAutoFocus={(e) => e.preventDefault()}
-              className="px-0 min-w-[300px] max-sm:w-screen font-rancho text-2xl">
+              className="px-0 min-w-[300px] max-sm:w-screen font-rancho text-2xl select-none">
               <SheetHeader className="gap-6 mt-6">
                 <img src={logo} alt="logo" className="w-16 absolute top-4 left-4" />
                 <SheetTitle className="font-carter text-center text-pink-400 text-2xl">Sug Break</SheetTitle>

@@ -10,7 +10,7 @@ const BackButton = ({className}) => {
   }
 
   return (
-    <button onClick={handleClick} className={cn(`underline text-2xl gap-1 flex justify-center items-center w-fit h-fit, ${className}`)}>
+    <button onClick={handleClick} className={cn(`underline select-none text-2xl gap-1 flex justify-center items-center w-fit h-fit, ${className}`)}>
       <FontAwesomeIcon icon={faAngleLeft} />
       Retour
     </button>

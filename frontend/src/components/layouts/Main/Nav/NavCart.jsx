@@ -18,10 +18,10 @@ function NavCart() {
   };
 
   return (
-    <section className="flex flex-col font-rancho min-w-72 flex-grow">
+    <section className="flex flex-col font-rancho min-w-72 flex-grow select-none">
       {cartContent.length > 0 ? (
         <div className="flex flex-col h-full">
-          <section className=" overflow-y-scroll flex flex-col gap-2 flex-grow p-4 h-1">
+          <section className=" overflow-y-scroll flex flex-col gap-2 flex-grow p-4 h-1 select-none">
             {cartContent.map((item, index) => {
               const formattedPrice = item?.product?.price.toFixed(2).replace('.', ',');
               return (

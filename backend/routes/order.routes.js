@@ -72,8 +72,6 @@ router.patch('/update/:orderId/:updatedStatus', async (req, res) => {
   try {
     const { orderId, updatedStatus } = req.params;
     const orderUpdated = await orderModel.findOneAndUpdate({ _id: orderId }, { status: updatedStatus }, { new: true });
-    
-    console.log(orderUpdated)
     if (orderUpdated) {
       const ordersUpdated = await orderModel.find();
       res.status(200).json({ message: 'Mise à jour effectuée avec succés', ordersUpdated: ordersUpdated });

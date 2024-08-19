@@ -15,11 +15,12 @@ const ConfirmationOrderTemplate = ({content, owner, id}) =>
         font-size: large;
       "
     >
-      Bonjour ${owner.email},
+      Bonjour ${owner?.firstname},
     </h1>
     <section>
       <p>Votre commande numéro ${id} est confirmée.</p>
-      <p>Elle sera prête d'ici 15 à 20 minutes. Vous recevrez également un mail pour vous notifier quand votre commande sera prête.</p>
+      <p>Elle sera prête d'ici 15 à 20 minutes.</p>
+
       <p>Cordialement,</p>
       <p>L'équipe Sug Break</p>
     </section>

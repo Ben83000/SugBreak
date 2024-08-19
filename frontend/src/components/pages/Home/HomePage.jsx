@@ -35,12 +35,14 @@ function HomePage() {
                 Sug Break
               </h1>
               <div className="flex flex-col gap-4 justify-center items-center">
-                <Link to="https://deliveroo.fr/fr/menu/paris/drancy-bobigny-tribunal/sug-break-196-avenue-jean-jaures"
+                <a href="https://deliveroo.fr/fr/menu/paris/drancy-bobigny-tribunal/sug-break-196-avenue-jean-jaures"
+                target="_blank"
+                rel="noopener noreferrer"
                   className="flex items-center justify-center p-4 cursor-pointer w-full border-4 text-white text-4xl rounded-2xl font-carter
             hover:text-pink-300 hover:border-pink-400 active:ring-2 active:ring-white select-none"
                 >
                   LIVRAISON
-                </Link>
+                </a>
                 <Link
                   onClick={() => handleDelivery("takeaway")}
                   to="/online-ordering"

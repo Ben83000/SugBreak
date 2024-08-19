@@ -74,6 +74,8 @@ const connectDB = async () => {
   }
 };
 
+console.log(process.env.NODE_ENV)
+
 // Middlewares express
 app.use(
   cors({
