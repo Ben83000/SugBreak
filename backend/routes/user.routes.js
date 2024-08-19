@@ -78,7 +78,11 @@ router.get('/confirm/:token', async (req, res) => {
   if (!token) {
     res
       .status(302)
-      .redirect('http://localhost:5173/registered?status=error&message=Votre compte n&apos;a pas pu être activé...');
+      .redirect(
+        process.env.NODE_ENV === 'production'
+          ? 'https://gentle-citadel-85847-6ce2d6bf71ee.herokuapp.com/registered?status=error&message=Votre compte n&apos;a pas pu être activé...'
+          : 'http://localhost:5173/registered?status=error&message=Votre compte n&apos;a pas pu être activé...'
+      );
   }
   let decoded;
   try {
@@ -86,7 +90,11 @@ router.get('/confirm/:token', async (req, res) => {
   } catch (error) {
     res
       .status(302)
-      .redirect('http://localhost:5173/registered?status=error&message=Votre compte n&apos;a pas pu être activé...');
+      .redirect(
+        process.env.NODE_ENV === 'production'
+          ? 'https://gentle-citadel-85847-6ce2d6bf71ee.herokuapp.com/registered?status=error&message=Votre compte n&apos;a pas pu être activé...'
+          : 'http://localhost:5173/registered?status=error&message=Votre compte n&apos;a pas pu être activé...'
+      );
   }
 
   const user = await userModel.findOne({ email: decoded.email }); // on recup le compte grace au mail recup dans le token dechiffré
@@ -97,18 +105,30 @@ router.get('/confirm/:token', async (req, res) => {
       await userModel.updateOne({ email: decoded.email }, { isActive: true }); // on le passe 'actif'
       res
         .status(302)
-        .redirect('http://localhost:5173/registered?status=success&message=Votre compte est maintenant actif !');
+        .redirect(
+          process.env.NODE_ENV === 'production'
+            ? 'https://gentle-citadel-85847-6ce2d6bf71ee.herokuapp.com/registered?status=success&message=Votre compte est maintenant actif !'
+            : 'http://localhost:5173/registered?status=success&message=Votre compte est maintenant actif !'
+        );
     } else {
       res
         .status(302)
-        .redirect('http://localhost:5173/registered?status=already&message=Votre compte a déjà été activé !');
+        .redirect(
+          process.env.NODE_ENV === 'production'
+            ? 'https://gentle-citadel-85847-6ce2d6bf71ee.herokuapp.com/registered?status=already&message=Votre compte a déjà été activé !'
+            : 'http://localhost:5173/registered?status=already&message=Votre compte a déjà été activé !'
+        );
     }
-  } 
+  }
   // si aucun user n'a été trouvé
   else {
     res
       .status(302)
-      .redirect('http://localhost:5173/registered?status=error&message=Votre compte n&apos;a pas pu être activé...');
+      .redirect(
+        process.env.NODE_ENV === 'production'
+          ? 'https://gentle-citadel-85847-6ce2d6bf71ee.herokuapp.com/registered?status=error&message=Votre compte n&apos;a pas pu être activé...'
+          : 'http://localhost:5173/registered?status=error&message=Votre compte n&apos;a pas pu être activé...'
+      );
   }
 });
 
@@ -206,11 +226,14 @@ router.post('/login', async (req, res) => {
     const passwordMatch = await bcrypt.compare(passwordSubmitted, user.password); // on compare les mots de passe (cryptés par bcrypt)
     // si les mots de passe sont bien identiques
     if (passwordMatch) {
+      console.log('login...');
       const userWithoutPassword = { ...user.toObject(), password: undefined }; // mot de passe undefined
       // token d'authentification 72h
       const token = jwt.sign({ email: user.email }, secretKey, {
         expiresIn: '72h',
       });
+      console.log('Generating token..');
+      console.log(token);
       // on le stocke dans les cookies pdt 72h
       res.cookie('token', token, {
         httpOnly: true,
