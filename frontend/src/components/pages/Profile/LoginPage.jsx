@@ -109,7 +109,7 @@ function LoginPage() {
                 if (resp.status === 200) {
                   await loginWithGoogle(response.email);
                 } else {
-                  console.log("Erreur lors de la création du compte");
+                  console.log("Erreur lors de la création du compte.");
                 }
               } else {
                 await loginWithGoogle(response.email);
