@@ -40,7 +40,7 @@ function OrderScreenPage() {
   };
 
   return (
-    <section className="flex flex-grow bg-amber-100 flex-nowrap p-2 overflow-x-scroll gap-2">
+    <section className="flex flex-grow bg-amber-100 flex-nowrap p-2 overflow-x-scroll gap-2 select-none">
       {orders?.map((item, index) => {
         if (item?.status === 'pending')
           return (

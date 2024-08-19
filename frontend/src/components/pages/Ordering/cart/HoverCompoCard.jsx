@@ -1,7 +1,7 @@
 function HoverCompoCard({ customisation }) {
   
   return (
-    <section className="flex flex-col p-2 font-rancho">
+    <section className="flex flex-col p-2 font-rancho select-none">
       {Object.keys(customisation).map((item, index) => {
         const length = customisation[item]?.length-1;
         return (

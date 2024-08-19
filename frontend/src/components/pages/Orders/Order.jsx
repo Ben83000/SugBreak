@@ -23,7 +23,7 @@ function Order({ item, index }) {
 
   return (
     <div
-      className="flex bg-pink-950 shadow-inner shadow-pink-500 p-2 rounded-xl gap-2 h-20 justify-around"
+      className="flex bg-pink-950 shadow-inner shadow-pink-500 p-2 rounded-xl gap-2 h-20 justify-around select-none"
       key={index}
     >
       {orderDetails.map((details, index) => {

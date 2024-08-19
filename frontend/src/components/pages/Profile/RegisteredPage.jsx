@@ -46,7 +46,7 @@ function RegisteredPage() {
 
   return (
     <Card>
-      <h1 className="text-center text-xl text-pink-200">{message}</h1>
+      <h1 className="text-center text-xl text-pink-200 ">{message}</h1>
       {(status === "already" || status === "success") ? (
         <Link
           to="/"

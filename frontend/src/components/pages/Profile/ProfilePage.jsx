@@ -41,7 +41,7 @@ function ProfilePage() {
   };
 
   return (
-    <section className="text-slate-100 pt-8 flex w-full flex-col gap-8 items-center bg-black flex-grow p-4 relative">
+    <section className="text-slate-100 pt-8 flex w-full flex-col gap-8 items-center bg-black flex-grow p-4 relative select-none">
       <BackButton className="absolute top-0 left-2 text-xl" />
       <h1 className="text-4xl">Votre profil</h1>
       <form

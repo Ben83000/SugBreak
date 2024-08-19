@@ -9,7 +9,7 @@ function RegistrationConfirmPage() {
   return (
     <Card>
       {user ? (
-        <div className="gap-2 flex flex-col">
+        <div className="gap-2 flex flex-col select-none">
           <h1 className="text-2xl text-center text-pink-200">Votre compte a été créé avec succés !</h1>
           <p>Il ne vous reste plus qu&apos;une dernière étape avant de pouvoir vous régaler...</p>
           <p>

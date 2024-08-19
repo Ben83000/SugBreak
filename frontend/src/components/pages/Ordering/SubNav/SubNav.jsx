@@ -12,7 +12,7 @@ function SubNav() {
   };
 
   return (
-    <nav className="hidden sm:flex w-full sticky top-14 h-14 bg-amber-100/70 backdrop-blur-sm z-50 ">
+    <nav className="hidden sm:flex w-full sticky top-14 h-14 bg-amber-100/70 backdrop-blur-sm z-50 select-none">
       <ul className="text-lg text-pink-800 flex w-full items-center gap-0.5 justify-center ">
         {menuData.map((item, index) => {
           return (

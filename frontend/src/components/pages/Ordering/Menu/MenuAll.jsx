@@ -18,7 +18,7 @@ function MenuAll() {
   }, {});
 
   return (
-    <section className="flex flex-col gap-4 pt-2">
+    <section className="flex flex-col gap-4 pt-2 select-none">
       {menuData.map(
         (
           item,

@@ -47,7 +47,7 @@ function LoginPage() {
 
   return (
     <Card>
-      <div className="mx-auto text-white text-center leading-tight">
+      <div className="mx-auto text-white text-center leading-tight select-none">
         <h1 className="font-semibold text-lg text-pink-200">Connexion</h1>
         <p>Vous n&apos;avez pas de compte ?</p>
         <Link

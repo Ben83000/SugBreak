@@ -57,7 +57,7 @@ function OrderContentModal({ orderContent }) {
   }, [orderContent]);
 
   return (
-    <section className="p-4 flex flex-col w-full overflow-y-scroll scrollbar-hide" ref={scrollContainerRef}>
+    <section className="p-4 flex flex-col w-full overflow-y-scroll scrollbar-hide select-none" ref={scrollContainerRef}>
       <h1 className="text-2xl underline place-self-center mb-2">Contenu de votre commande</h1>
       <OrderContentMap orderContent={orderContent} />
       {isOverflowing && (

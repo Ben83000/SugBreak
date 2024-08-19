@@ -24,7 +24,7 @@ function Cart() {
   };
 
   return (
-    <section className="bg-slate-200 md:flex md:flex-col hidden font-rancho min-w-72 shadow-deep-shadow z-20 max-h-[calc(100vh-3.5rem)] sticky top-14">
+    <section className="bg-slate-200 md:flex md:flex-col hidden select-none font-rancho min-w-72 shadow-deep-shadow z-20 max-h-[calc(100vh-3.5rem)] sticky top-14">
       <div className="text-3xl flex bg-pink-600 p-3 text-slate-100 h-14">
         <p className="">Prix total</p>
         <TotalPrice className="ml-auto" />

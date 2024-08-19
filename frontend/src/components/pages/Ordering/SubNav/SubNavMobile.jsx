@@ -84,7 +84,7 @@ function SubNavMobile() {
               duration={500}
               className={cn(
                 'text-center py-1 cursor-pointer',
-                selectedMenuItem === index ? 'text-pink-600 font-semibold' : 'text-slate-900'
+                selectedMenuItem === index ? 'text-pink-600' : 'text-slate-950'
               )}
               onSetActive={() => {
                 setSelectedMenuItem(index);
