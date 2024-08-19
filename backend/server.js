@@ -33,7 +33,7 @@ const server = http.createServer(app);
 // Initialise Socket.IO avec le serveur HTTP
 const io = new socketIo(server, {
   cors: {
-    origin: 'https://gentle-citadel-85847-6ce2d6bf71ee.herokuapp.com/',
+    origin: process.env.NODE_ENV === 'production' ? process.env.ORIGIN_PROD : process.env.ORIGIN_DEV,
     methods: ['GET', 'POST'],
     credentials: true,
   },
@@ -77,7 +77,7 @@ const connectDB = async () => {
 // Middlewares express
 app.use(
   cors({
-    origin: 'https://gentle-citadel-85847-6ce2d6bf71ee.herokuapp.com',
+    origin: process.env.NODE_ENV === 'production' ? process.env.ORIGIN_PROD : process.env.ORIGIN_DEV,
     methods: ['GET', 'PUT', 'DELETE', 'POST', 'PATCH'],
     credentials: true,
   })
@@ -108,7 +108,7 @@ if (process.env.NODE_ENV === 'production') {
 
 // Démarre le serveur HTTP et Socket.IO sur le port
 server.listen(port, () => {
-  console.log(`Server and Socket.IO running on https://gentle-citadel-85847-6ce2d6bf71ee.herokuapp.com`);
+  console.log(`Server and Socket.IO running`);
 });
 
 // Appeler connectDB pour établir la connexion avec la base de données

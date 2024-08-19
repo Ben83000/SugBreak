@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-
+import config from './config';
 export const ProductContext = createContext();
 
 export function ProductContextProvider({ children }) {
@@ -13,7 +13,7 @@ export function ProductContextProvider({ children }) {
   }, []);
 
   const getProducts = async () => {
-    const response = await fetch("http://localhost:5000/product");
+    const response = await fetch(`${config.apiUrl}product`);
     const datas = await response.json();
     setProducts(datas);
   };
@@ -51,7 +51,7 @@ export function ProductContextProvider({ children }) {
   const updateProdut = async (id, data) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/product/update/${id}`,
+        `${config.apiUrl}product/update/${id}`,
         {
           method: "PATCH",
           credentials: "include",
@@ -72,7 +72,7 @@ export function ProductContextProvider({ children }) {
 
   const deleteProduct = async (id) => {
     try {
-      const response = await fetch(`http://localhost:5000/product/${id}`, {
+      const response = await fetch(`${config.apiUrl}product/${id}`, {
         method: "DELETE",
         credentials: "include",
         headers: {
@@ -92,7 +92,7 @@ export function ProductContextProvider({ children }) {
 
   const addProduct = async (product) => {
     try {
-      const response = await fetch("http://localhost:5000/product", {
+      const response = await fetch(`${config.apiUrl}product`, {
         method: "POST",
         credentials: "include",
         headers: {
