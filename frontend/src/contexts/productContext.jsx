@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import config from './config';
+import config from '@/config/config.js';
 export const ProductContext = createContext();
 
 export function ProductContextProvider({ children }) {
