@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "nodemon server",
     "start": "node server",
-    "heroku-postbuild": "npm install --prefix frontend && npm run build --prefix frontend"
+     "heroku-postbuild": "npm install --prefix backend && npm install --prefix frontend && npm run build --prefix frontend"
   },
   "engines": {
     "node": "20.11.1",
