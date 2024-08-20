@@ -15,7 +15,7 @@ function OrdersPage() {
       <section className="flex flex-col w-full sm:w-[640px] mx-auto gap-4">
         {userOrders.map((item, index) => {
           return (
-            <Order key={item.product?.name} item={item} index={index} />
+            <Order key={item.product?._id} item={item} index={index} />
           );
         })}
       </section>

@@ -8,7 +8,7 @@ const Input = React.forwardRef(
     ref
   ) => {
     return (
-      <div className={cn("flex flex-col gap-0.5 h-fit max-h-full", className)}>
+      <div className={cn("flex flex-col gap-0.5 h-fit", className)}>
         {label && (
           <div className="flex">
             <label className={cn(cnLabel)} htmlFor={id}>

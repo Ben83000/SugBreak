@@ -161,7 +161,7 @@ export const AuthContextProvider = ({ children }) => {
       setAdmin(false);
     }
     setUser(null);
-    navigate('/');
+    navigate('/online-ordering');
   };
 
   const sendEmailConfirmation = async (email) => {
@@ -183,8 +183,6 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   const handleUser = (name, value) => {
-    console.log(name);
-    console.log(value);
     setUser((prevData) => ({
       ...prevData,
       [name]: value,

@@ -45,7 +45,7 @@ function ProfilePage() {
       <BackButton className="absolute top-0 left-2 text-xl" />
       <h1 className="text-4xl">Votre profil</h1>
       <form
-        className="bg-pink-950/85 flex flex-col w-full sm:w-1/2 sm:min-w-[576px]  mx-8 gap-6 p-8 rounded-xl shadow-inner shadow-pink-500"
+        className="bg-pink-950/85 flex flex-col w-full sm:w-1/2 sm:min-w-[576px] mx-8 gap-6 p-8 rounded-xl shadow-inner shadow-pink-500"
         onSubmit={handleSubmit(onSubmit)}
       >
         <h2 className="text-2xl">Vos informations</h2>

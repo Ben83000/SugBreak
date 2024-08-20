@@ -1,3 +1,5 @@
+
+
 const welcomeTemplate = ({ email, token }) => `
   <!DOCTYPE html>
   <html lang="fr">
@@ -24,10 +26,10 @@ const welcomeTemplate = ({ email, token }) => `
       <p>
         N'oubliez pas de confirmer votre compte en cliquant sur le lien suivant:
       </p>
-      <a href="http://localhost:5000/user/confirm/${token}">Confirmer votre compte</a>
+      <a href="https://gentle-citadel-85847-6ce2d6bf71ee.herokuapp.com/user/confirm/${token}">Confirmer votre compte</a>
       <p>
         Ce lien est valable 72h. Si le lien ne fonctionne plus, vous pouvez vous rendre sur 
-        <a href="http://localhost:5173/registred">cette page</a>
+        <a href="https://gentle-citadel-85847-6ce2d6bf71ee.herokuapp.com/registred">cette page</a>
          pour recevoir à nouveau un mail de confirmation.
       </p>
       <p>L'équipe Sug Break</p>
