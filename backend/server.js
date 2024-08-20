@@ -33,7 +33,7 @@ const server = http.createServer(app);
 // Initialise Socket.IO avec le serveur HTTP
 const io = new socketIo(server, {
   cors: {
-    origin: process.env.NODE_ENV === 'production' ? "https://gentle-citadel-85847-6ce2d6bf71ee.herokuapp.com" : "http://localhost:5173",
+    origin: process.env.NODE_ENV === 'production' ? "https://gentle-citadel-85847-6ce2d6bf71ee.herokuapp.com" : "http://170.20.10.3:5173",
     methods: ['GET', 'POST'],
     credentials: true,
   },
@@ -79,9 +79,9 @@ console.log(process.env.NODE_ENV)
 // Middlewares express
 app.use(
   cors({
-    origin: process.env.NODE_ENV === 'production' ? "https://gentle-citadel-85847-6ce2d6bf71ee.herokuapp.com" : "http://localhost:5173",
+    origin: process.env.NODE_ENV === 'production' ? "https://gentle-citadel-85847-6ce2d6bf71ee.herokuapp.com" : "http://172.20.10.3:5173",
     methods: ['GET', 'PUT', 'DELETE', 'POST', 'PATCH'],
-    credentials: true,
+    credentials: true, 
   })
 );
 app.use(express.json());
@@ -109,7 +109,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // Démarre le serveur HTTP et Socket.IO sur le port
-server.listen(port, () => {
+server.listen(port, '0.0.0.0', () => {
   console.log(`Server and Socket.IO running`);
 });
 
