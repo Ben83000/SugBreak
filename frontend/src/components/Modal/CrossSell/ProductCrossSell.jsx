@@ -40,7 +40,7 @@ function ProductCrossSell({ product, reduc }) {
     <section
       onClick={handleClick}
       className={cn(
-        "select-none relative flex w-full h-36 text-slate-800 gap-1 p-2 bg-white shadow-custom-lg hover:shadow-custom-dark rounded-xl cursor-pointer overflow-hidden transition-transform duration-300 hover:scale-105"
+        "select-none relative grid grid-cols-3 w-full h-36 text-slate-800 gap-1 p-2 bg-white shadow-custom-lg hover:shadow-custom-dark rounded-xl cursor-pointer overflow-hidden transition-transform duration-300 hover:scale-105"
       )}
     >
       <img
@@ -48,7 +48,7 @@ function ProductCrossSell({ product, reduc }) {
         alt={name}
         className="object-contain aspect-square w-fit"
       />
-      <div className="flex flex-grow gap-1 h-full">
+      <div className="flex flex-grow gap-1 h-full col-span-2">
         <div className="h-full flex flex-col">
           <h2 className="text-3xl text-amber-900">{name}</h2>
           <p className="text-wrap leading-[1.20rem] text-lg truncate-multiline">{description}</p>
