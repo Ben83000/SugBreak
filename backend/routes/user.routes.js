@@ -236,6 +236,7 @@ router.post('/login', async (req, res) => {
       // on le stocke dans les cookies pdt 72h
       res.cookie('token', token, {
         httpOnly: true,
+        secure: true,
         maxAge: 3 * 24 * 60 * 60 * 1000,
       });
       // Si le compte n'est pas encore activé
