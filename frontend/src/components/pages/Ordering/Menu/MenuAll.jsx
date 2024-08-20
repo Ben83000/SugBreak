@@ -30,7 +30,7 @@ function MenuAll() {
             className="flex min-w-full flex-col gap-4"
           >
             <h2 className="text-5xl text-center text-amber-900">{item.name}</h2>
-            <section className="grid grid-cols-1 lg:grid-cols-2 h-full justify-start gap-2 xs:p-4 sm:p-6">
+            <section className="grid grid-cols-1 lg:grid-cols-2 justify-start gap-2 xs:p-4 sm:p-6">
               {categorizedProducts[item.category] &&
                 categorizedProducts[item.category].map(
                   (
