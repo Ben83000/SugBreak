@@ -77,7 +77,7 @@ function Modal() {
                 <motion.section
                   key="modalWindow"
                   variants={childVariants}
-                  className={`flex bg-amber-100 h-screen w-screen ${modalWidth} ${modalHeight} sm:rounded-lg relative mx-auto my-auto overflow-hidden`}
+                  className={`flex bg-amber-100 h-dvh w-screen ${modalWidth} ${modalHeight} sm:rounded-lg relative sm:mx-auto sm:my-auto overflow-hidden`}
                 >
                   <FontAwesomeIcon
                     icon={faX}

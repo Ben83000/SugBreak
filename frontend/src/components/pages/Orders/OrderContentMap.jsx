@@ -6,7 +6,7 @@ function OrderContentMap({ orderContent }) {
   return (
  orderContent.map((item) => {
         return (
-          <div className="grid grid-cols-orderContent gap-2 w-full" key={item?._id}>
+          <div className="grid grid-cols-orderContent gap-2 w-full" key={item?.product?._id}>
             <p className="text-xl capitalize">
               {item?.product.custom && item?.product.category === 'waffle'
                 ? item?.customisation?.base[0].label

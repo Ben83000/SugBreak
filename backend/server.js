@@ -33,7 +33,7 @@ const server = http.createServer(app);
 // Initialise Socket.IO avec le serveur HTTP
 const io = new socketIo(server, {
   cors: {
-    origin: process.env.NODE_ENV === 'production' ? "https://gentle-citadel-85847-6ce2d6bf71ee.herokuapp.com" : "http://170.20.10.3:5173",
+    origin: process.env.NODE_ENV === 'production' ? "https://gentle-citadel-85847-6ce2d6bf71ee.herokuapp.com" : "http://172.20.10.3:5173",
     methods: ['GET', 'POST'],
     credentials: true,
   },

@@ -40,11 +40,11 @@ function OrderScreenPage() {
   };
 
   return (
-    <section className="flex flex-grow bg-amber-100 flex-nowrap p-2 overflow-x-scroll gap-2 select-none">
+    <section className="flex flex-grow bg-amber-100 flex-nowrap p-2 overflow-x-auto scroll-x-auto gap-2 select-none">
       {orders?.map((item, index) => {
         if (item?.status === 'pending')
           return (
-            <div key={item._id} className="bg-white/70 min-w-96 min-h-full h-min flex flex-col flex-shrink-0">
+            <div key={item._id} className="bg-white/70 min-w-96 min-h-full flex flex-col flex-shrink-0">
               <div
                 className={cn('w-full bg-amber-200 pt-4 pl-4 pr-4 pb-1 relative', {
                   'bg-red-500': calculateDiffInMin(currentTime, new Date(item?.date)) > 15, // Si ça fait + de 15min que la commande est à l'ecran, elle apparait en rouge

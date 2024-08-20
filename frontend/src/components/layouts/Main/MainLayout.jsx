@@ -10,11 +10,11 @@ function MainLayout({ children }) {
 
   return (
     <>
-      <section className="font-rancho flex flex-col h-screen">
+      <section className="font-rancho flex flex-col min-h-screen bg-amber-100">
         {loading && <Loader />}
         <Nav />
-        <div className="h-14 min-h-14 max-h-14">
-        </div>
+        {/* <div className="h-14 min-h-14 max-h-14">
+        </div> */}
         {children}
         <AdminPanel />
       </section>

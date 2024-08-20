@@ -1,5 +1,10 @@
 const GOOGLE_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
 
+/**
+ * get the lat & long from adress with geocode api by google
+ * @param {String} address to localize 
+ * @returns location
+ */
 async function getLatLngFromAddress(address) {
   try {
     const response = await fetch(

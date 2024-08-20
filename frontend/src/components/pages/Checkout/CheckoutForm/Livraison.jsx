@@ -1,25 +1,27 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { GoogleMap, MarkerF, useLoadScript } from "@react-google-maps/api";
 import getLatLngFromAddress from "@/tools/getLatLngFromAdress";
 
 const API_GOOGLE = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
 function Shipping({ handleStep, checkoutData, setCheckoutData }) {
-  console.log(checkoutData);
   const [deliveryMode, setDeliveryMode] = useState("takeaway");
   const [addressPosition, setAddressPosition] = useState(null);
 
-  useEffect(() => {
-    async function getCustomerLocation() {
+  const getCustomerLocation = useCallback(async () => {
+    if (checkoutData?.address && checkoutData?.zip && checkoutData?.city) {
       const customerLocation = await getLatLngFromAddress(
-        checkoutData?.address,
-        checkoutData?.zip,
-        checkoutData?.city
+        checkoutData.address,
+        checkoutData.zip,
+        checkoutData.city
       );
       setAddressPosition(customerLocation);
     }
+  }, [checkoutData]);
+
+  useEffect(() => {
     getCustomerLocation();
-  }, []);
+  }, [getCustomerLocation]);
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -38,7 +40,7 @@ function Shipping({ handleStep, checkoutData, setCheckoutData }) {
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: API_GOOGLE,
-    libraries: ["marker"],
+    libraries: ["places"],
   });
 
   const handleClick = () => {
@@ -66,7 +68,7 @@ function Shipping({ handleStep, checkoutData, setCheckoutData }) {
         {deliveryMode === "takeaway" ? (
           <div className="flex flex-col items-center w-full text-center">
             <h2 className="text-xl font-semibold leading-none">Emplacement du retrait</h2>
-            <p className="mb-1 ">196 Avenue Jean Jaurès, 93700 Drancy</p>
+            <p className="mb-1">196 Avenue Jean Jaurès, 93700 Drancy</p>
             {isLoaded ? (
               <GoogleMap
                 mapContainerStyle={mapContainerStyle}
@@ -76,7 +78,9 @@ function Shipping({ handleStep, checkoutData, setCheckoutData }) {
                 <MarkerF position={shopLocation} />
               </GoogleMap>
             ) : loadError ? (
-              <div>Error loading map</div>
+              <div>
+                Error loading map: {loadError.message || "Unknown error"}
+              </div>
             ) : (
               <div>Loading...</div>
             )}
@@ -87,21 +91,24 @@ function Shipping({ handleStep, checkoutData, setCheckoutData }) {
             <p className="mb-1">
               {checkoutData?.address}, {checkoutData?.zip} {checkoutData?.city}
             </p>
-
-            <GoogleMap
-              mapContainerStyle={mapContainerStyle}
-              center={addressPosition}
-              zoom={18}
-            >
-              <MarkerF position={addressPosition} />
-            </GoogleMap>
+            {addressPosition ? (
+              <GoogleMap
+                mapContainerStyle={mapContainerStyle}
+                center={addressPosition}
+                zoom={18}
+              >
+                <MarkerF position={addressPosition} />
+              </GoogleMap>
+            ) : (
+              <div>Loading address...</div>
+            )}
           </div>
         )}
       </section>
       <button
         onClick={handleClick}
         type="button"
-        className=" bg-slate-900 text-white text-xl p-2 border-none rounded-xl font-semibold w-2/3 lg:w-1/2 mt-1"
+        className="bg-slate-900 text-white text-xl p-2 border-none rounded-xl font-semibold w-2/3 lg:w-1/2 mt-1"
       >
         Passer au paiement
       </button>

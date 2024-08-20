@@ -8,6 +8,7 @@ const secretKey = process.env.JWT_SECRET;
 export const isAuthentificated = async (req, res, next) => {
   const token = req.cookies.token;
   if (!token) {
+    console.log("pas de token");
     return res.sendStatus(401);
   } else if (token) {
     try {

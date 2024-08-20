@@ -4,6 +4,7 @@ import { PaymentElement } from '@stripe/react-stripe-js';
 import AuthContext from '@/contexts/authContext';
 import { CartContext } from '@/contexts/cartContext';
 import { useNavigate } from 'react-router-dom';
+import config from '@/config/config';
 
 function PaymentForm({ handleStep, checkoutData, setCheckoutData }) {
   const stripe = useStripe();
@@ -35,7 +36,7 @@ function PaymentForm({ handleStep, checkoutData, setCheckoutData }) {
         paymentMethod: paymentIntent.payment_method, // methode de paiement (sous forme de jeton pour securiser le transfert de données)
         totalAmount: cartValue, // montant total de la commande
       };
-      const response = await fetch('http://localhost:5000/order/add', {
+      const response = await fetch(`${config.apiUrl}/order/add`, {
         method: 'POST',
         credentials: 'include',
         headers: {

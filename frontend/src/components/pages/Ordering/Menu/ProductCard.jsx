@@ -45,7 +45,7 @@ function ProductCard({ product }) {
     <section
       onClick={handleClick}
       className={cn(
-        'select-none relative grid grid-cols-3 w-full min-w-72 h-36 text-slate-800 gap-1 p-2 bg-white shadow-custom-lg hover:shadow-custom-dark rounded-xl cursor-pointer overflow-hidden transition-transform duration-300 hover:scale-105'
+        'select-none relative grid grid-cols-3 w-full min-w-72 h-36 text-slate-800 gap-1 p-2 bg-white shadow-custom-lg hover:shadow-custom-dark rounded-xl cursor-pointer overflow-hidden transition-transform duration-300 max-sm:hover:scale-95 sm:hover:scale-105'
       )}>
         <img
           src={imageUrl ?? `/images/default/${category}.jpg`}

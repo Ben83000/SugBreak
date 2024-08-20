@@ -3,6 +3,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import PaymentForm from './PaymentForm';
 import { CartContext } from '@/contexts/cartContext';
+import config from '@/config/config';
 
 function Payment({ handleStep, checkoutData, setCheckoutData }) {
   const [stripePromise, setStripePromise] = useState(null);
@@ -11,7 +12,7 @@ function Payment({ handleStep, checkoutData, setCheckoutData }) {
 
   useEffect(() => {
     const fetchPkStripe = async () => {
-      const response = await fetch('http://localhost:5000/stripe/config');
+      const response = await fetch(`${config.apiUrl}/stripe/config`);
       const { publishableKey } = await response.json();
       setStripePromise(loadStripe(publishableKey));
     };
@@ -20,7 +21,7 @@ function Payment({ handleStep, checkoutData, setCheckoutData }) {
 
   useEffect(() => {
     const fetchPaymentIntent = async () => {
-      const response = await fetch('http://localhost:5000/stripe/create-payment-intent', {
+      const response = await fetch(`${config.apiUrl}/stripe/create-payment-intent`, {
         method: 'POST',
         credentials: 'include',
         headers: {

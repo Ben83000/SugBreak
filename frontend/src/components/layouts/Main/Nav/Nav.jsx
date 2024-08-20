@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import logo from '@/assets/images/logo.png';
 import { Link } from 'react-router-dom';
 import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
@@ -20,13 +20,33 @@ function Nav({ transparent }) {
   const { auth, logout, user, admin } = useContext(AuthContext);
   const { toggleAdminMode, adminMode } = useContext(AdminContext);
   const { cartValue } = useContext(CartContext);
+  const [isTop, setIsTop] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setIsTop(false);
+      } else {
+        setIsTop(true);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   const handleLogout = async () => {
     await logout();
   };
 
   return (
-    <nav className={cn('flex w-full select-none fixed top-0 left-0 right-0 z-50 h-14 bg-black', transparent && 'bg-transparent')}>
+    <nav
+      className={cn(
+        'flex w-full sticky select-none top-0 right-0 z-50 h-14 min-h-14 bg-black',
+        transparent && 'bg-transparent',
+        
+      )}>
       <ul className="flex items-center px-6 h-full gap-4 w-full">
         <li>
           <Link to="/">
@@ -109,7 +129,9 @@ function Nav({ transparent }) {
                       <>
                         <Separator className="bg-pink-500 w-3/4 ml-auto" />
                         <SheetClose asChild>
-                          <Link to="/admin/orderScreen" className="grid grid-cols-sheet text-slate-100 hover:text-pink-300">
+                          <Link
+                            to="/admin/orderScreen"
+                            className="grid grid-cols-sheet text-slate-100 hover:text-pink-300">
                             <ScrollTextLine />
                             <p>Affichage des commandes</p>
                           </Link>
