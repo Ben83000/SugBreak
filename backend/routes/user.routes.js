@@ -153,7 +153,7 @@ router.patch('/:email', async (req, res) => {
     });
     const userWithoutPassword = {
       ...userUpdated.toObject(),
-      password: undefined,
+      password: undefined, 
     };
     if (userUpdated) {
       res.status(200).json({
@@ -224,7 +224,7 @@ router.post('/login', async (req, res) => {
   const user = await userModel.findOne({ email: emailSubmitted.toLowerCase() });
   if (user) {
     const passwordMatch = await bcrypt.compare(passwordSubmitted, user.password); // on compare les mots de passe (cryptés par bcrypt)
-    // si les mots de passe sont bien identiques
+    // si les mots de passe sont bien identiques 
     if (passwordMatch) {
       console.log('login...');
       const userWithoutPassword = { ...user.toObject(), password: undefined }; // mot de passe undefined
@@ -233,7 +233,7 @@ router.post('/login', async (req, res) => {
         expiresIn: '72h',
       });
       console.log('Generating token..');
-      // on le stocke dans les cookies pdt 72h
+      // on le stocke dans les cookies pdt 72h 
       res.cookie('token', token, {
         httpOnly: true,
         maxAge: 3 * 24 * 60 * 60 * 1000,

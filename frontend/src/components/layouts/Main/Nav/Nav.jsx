@@ -19,8 +19,23 @@ import { CartContext } from '@/contexts/cartContext';
 function Nav({ transparent }) {
   const { auth, logout, user, admin } = useContext(AuthContext);
   const { toggleAdminMode, adminMode } = useContext(AdminContext);
-  const { cartValue } = useContext(CartContext);
+  const { cartValue, cartContent } = useContext(CartContext);
   const [isTop, setIsTop] = useState(true);
+  const [cartCount, setCartCount] = useState(0);
+
+  const countItemsInTheCart = () => {
+    const itemsCount = cartContent.reduce((acc, current) => {
+      return acc + current?.quantity || 0;
+    }, 0);
+    return itemsCount;
+  };
+
+  useEffect(() => {
+    if (cartContent.length > 0) {
+      const count = countItemsInTheCart();
+      setCartCount(count)
+    }
+  }, [cartContent]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,8 +59,7 @@ function Nav({ transparent }) {
     <nav
       className={cn(
         'flex w-full sticky select-none top-0 right-0 z-50 h-14 min-h-14 bg-black',
-        transparent && 'bg-transparent',
-        
+        transparent && 'bg-transparent'
       )}>
       <ul className="flex items-center px-6 h-full gap-4 w-full">
         <li>
@@ -75,8 +89,9 @@ function Nav({ transparent }) {
                     },
                   }}
                   key={cartValue}
-                  className="flex">
+                  className="flex relative">
                   <FontAwesomeIcon size="lg" icon={faCartShopping} />
+                  <p className="text-pink-500 leading-none rounded-full px-1 bg-white absolute -right-1 -top-2">{cartCount}</p>
                 </motion.div>
               </AnimatePresence>
             </SheetTrigger>
