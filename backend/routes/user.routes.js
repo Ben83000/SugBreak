@@ -153,7 +153,7 @@ router.patch('/:email', async (req, res) => {
     });
     const userWithoutPassword = {
       ...userUpdated.toObject(),
-      password: undefined, 
+      password: undefined,
     };
     if (userUpdated) {
       res.status(200).json({
@@ -164,7 +164,6 @@ router.patch('/:email', async (req, res) => {
       res.status(404).json({ message: 'Impossible de mettre à jour les infos.' });
     }
   } catch (error) {
-    console.error(error);
     res.status(500).json({ message: 'Erreur de connexion au serveur.' });
   }
 });
@@ -218,48 +217,50 @@ router.post('/emailConfirmation', async (req, res) => {
 });
 
 router.post('/login', async (req, res) => {
-  const emailSubmitted = req.body.email;
-  const passwordSubmitted = req.body.password;
-  const errorAuthMsg = 'Adresse e-mail ou mot de passe incorrect.';
-  const user = await userModel.findOne({ email: emailSubmitted.toLowerCase() });
-  if (user) {
-    const passwordMatch = await bcrypt.compare(passwordSubmitted, user.password); // on compare les mots de passe (cryptés par bcrypt)
-    // si les mots de passe sont bien identiques 
-    if (passwordMatch) {
-      console.log('login...');
-      const userWithoutPassword = { ...user.toObject(), password: undefined }; // mot de passe undefined
-      // token d'authentification 72h
-      const token = jwt.sign({ email: user.email }, secretKey, {
-        expiresIn: '72h',
-      });
-      console.log('Generating token..');
-      // on le stocke dans les cookies pdt 72h 
-      res.cookie('token', token, {
-        httpOnly: true,
-        maxAge: 3 * 24 * 60 * 60 * 1000,
-      });
-      // Si le compte n'est pas encore activé
-      if (!user.isActive) {
-        return res.status(401).json({
-          message: 'Veuillez confirmer votre email pour vous connecter.',
-          typeError: 'emailConfirmation',
-          user: userWithoutPassword,
+  try {
+    const emailSubmitted = req.body.email;
+    const passwordSubmitted = req.body.password;
+    const errorAuthMsg = 'Adresse e-mail ou mot de passe incorrect.';
+    const user = await userModel.findOne({ email: emailSubmitted.toLowerCase() });
+    if (user) {
+      const passwordMatch = await bcrypt.compare(passwordSubmitted, user.password); // on compare les mots de passe (cryptés par bcrypt)
+      // si les mots de passe sont bien identiques
+      if (passwordMatch) {
+        const userWithoutPassword = { ...user.toObject(), password: undefined }; // mot de passe undefined
+        // token d'authentification 72h
+        const token = jwt.sign({ email: user.email }, secretKey, {
+          expiresIn: '72h',
         });
-      } else {
-        return res.status(200).json({
-          message: 'Connexion réussie.',
-          user: userWithoutPassword,
+        // on le stocke dans les cookies pdt 72h
+        res.cookie('token', token, {
+          httpOnly: true,
+          maxAge: 3 * 24 * 60 * 60 * 1000,
         });
+        // Si le compte n'est pas encore activé
+        if (!user.isActive) {
+          return res.status(401).json({
+            message: 'Veuillez confirmer votre email pour vous connecter.',
+            typeError: 'emailConfirmation',
+            user: userWithoutPassword,
+          });
+        } else {
+          return res.status(200).json({
+            message: 'Connexion réussie.',
+            user: userWithoutPassword,
+          });
+        }
+      }
+      // Sinon si les mots de passe ne sont pas identiques, on renvoie une erreur d'identification
+      else {
+        return res.status(401).json({ typeError: 'id', message: errorAuthMsg });
       }
     }
-    // Sinon si les mots de passe ne sont pas identiques, on renvoie une erreur d'identification
+    // Si l'identifiant n'existe pas, on renvoie la meme erreur d'identification
     else {
       return res.status(401).json({ typeError: 'id', message: errorAuthMsg });
     }
-  }
-  // Si l'identifiant n'existe pas, on renvoie la meme erreur d'identification
-  else {
-    return res.status(401).json({ typeError: 'id', message: errorAuthMsg });
+  } catch (error) {
+    res.json({ error: error });
   }
 });
 

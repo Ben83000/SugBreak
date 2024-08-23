@@ -20,7 +20,6 @@ function Nav({ transparent }) {
   const { auth, logout, user, admin } = useContext(AuthContext);
   const { toggleAdminMode, adminMode } = useContext(AdminContext);
   const { cartValue, cartContent } = useContext(CartContext);
-  const [isTop, setIsTop] = useState(true);
   const [cartCount, setCartCount] = useState(0);
 
   const countItemsInTheCart = () => {
@@ -33,23 +32,9 @@ function Nav({ transparent }) {
   useEffect(() => {
     if (cartContent.length > 0) {
       const count = countItemsInTheCart();
-      setCartCount(count)
+      setCartCount(count);
     }
   }, [cartContent]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 0) {
-        setIsTop(false);
-      } else {
-        setIsTop(true);
-      }
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
 
   const handleLogout = async () => {
     await logout();
@@ -91,7 +76,9 @@ function Nav({ transparent }) {
                   key={cartValue}
                   className="flex relative">
                   <FontAwesomeIcon size="lg" icon={faCartShopping} />
-                  <p className="text-pink-500 leading-none rounded-full px-1 bg-white absolute -right-1 -top-2">{cartCount}</p>
+                  <p className="text-pink-500 leading-none rounded-full px-1 bg-white absolute -right-1 -top-2">
+                    {cartCount}
+                  </p>
                 </motion.div>
               </AnimatePresence>
             </SheetTrigger>

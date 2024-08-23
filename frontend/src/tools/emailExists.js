@@ -14,7 +14,6 @@ export default async function emailExists(value, email, setEmail) {
         `${config.apiUrl}/user/${encodeURIComponent(value)}` 
       );
       if (response.status === 200) {
-        console.log(response.status)
         setEmail({ value: value, unique: false });
         return false;
       } else if (response.status === 404) {

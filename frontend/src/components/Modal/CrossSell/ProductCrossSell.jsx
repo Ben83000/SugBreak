@@ -27,7 +27,6 @@ function ProductCrossSell({ product, reduc }) {
 
  useEffect(() => {
   setOldPrice(product?.price);
-  
  }, [])
 
   const handleClick = (e) => {

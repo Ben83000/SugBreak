@@ -61,7 +61,6 @@ export const OrderContextProvider = ({ children }) => {
       credentials: 'include',
     });
     const data = await response.json();
-    console.log(data);
     return data.orders;
   };
 

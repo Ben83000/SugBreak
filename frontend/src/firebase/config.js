@@ -8,8 +8,6 @@ const bucket = import.meta.env.VITE_FIREBASE_BUCKET
 const messagingSenderId = import.meta.env.VITE_FIREBASE_SENDER_ID
 const projectId = import.meta.env.VITE_FIREBASE_PROJECT_ID
 
-console.log()
-
 const firebaseConfig = {
   apiKey: apiKey,
   authDomain: authDomain,

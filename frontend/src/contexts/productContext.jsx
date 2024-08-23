@@ -17,7 +17,6 @@ export function ProductContextProvider({ children }) {
     const datas = await response.json();
     setProducts(datas);
   };
-  console.log(config);
 
   const getProduct = async (filter, query) => {
     setLoading(true);

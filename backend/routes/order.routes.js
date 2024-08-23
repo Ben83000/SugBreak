@@ -6,16 +6,6 @@ import { isAuthentificated } from '../auth/auth.js';
 
 const router = express.Router();
 
-// router.delete('/delete/all', async (req, res) => {
-//   try {
-//     await orderModel.deleteMany({});
-//     res.status(200).json({ message: 'Orders deleted' });
-//   } catch (error) {
-//     console.log(error);
-//     res.json({ error });
-//   }
-// });
-
 // Route de creation d'une nouvelle commande
 router.post('/add', async (req, res) => {
   try {

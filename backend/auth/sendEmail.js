@@ -15,12 +15,8 @@ const sendEmail = async (email, template, subject, ...templateData) => {
   };
 
   try {
-    console.log("envoi de l'email")
-    console.log(mailOptions)
     await resend.emails.send(mailOptions);
-    console.log("email envoyé")
   } catch (error) {
-    console.error("Erreur lors de l'envoi de l'email:", error);
     throw new Error("Erreur lors de l'envoi de l'email");
   }
 };

@@ -1,6 +1,5 @@
 import { object, string } from "yup";
 
-
 const userLoginSchema = object({
   email: string()
     .required("Ce champs est requis"),

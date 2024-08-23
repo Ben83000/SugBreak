@@ -111,7 +111,6 @@ export const AuthContextProvider = ({ children }) => {
     });
     const status = response.status;
     const datas = await response.json();
-    console.log(datas)
     switch (status) {
       case 200:
         navigate(`/online-ordering`);

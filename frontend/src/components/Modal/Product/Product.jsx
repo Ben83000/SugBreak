@@ -12,9 +12,7 @@ function Product({ product }) {
   const { addToCart } = useContext(CartContext);
   const { closeModal } = useContext(ModalContext);
   const [totalPrice, setTotalPrice] = useState(price);
-
-  console.log(product);
-
+  
   const handleClick = () => {
     addToCart(product);
     closeModal();

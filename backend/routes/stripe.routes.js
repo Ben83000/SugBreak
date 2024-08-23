@@ -1,5 +1,5 @@
-import Stripe from "stripe";
-import express from "express";
+import Stripe from 'stripe';
+import express from 'express';
 
 const stripe = new Stripe(process.env.SECRET_KEY_STRIPE_TEST);
 const router = express.Router();
@@ -10,15 +10,12 @@ export const getPaymentMethodDetails = async (paymentMethodId) => {
     const paymentMethod = await stripe.paymentMethods.retrieve(paymentMethodId);
     return paymentMethod;
   } catch (error) {
-    console.log(
-      "Erreur lors de la récupération des détails de paiement:",
-      error
-    );
+    res.json({ error: error });
   }
 };
 
 // Route de recupération de la clé stripe public
-router.get("/config", (req, res) => {
+router.get('/config', (req, res) => {
   const key = process.env.PUBLIC_KEY_STRIPE_TEST;
   res.send({
     publishableKey: key,
@@ -26,11 +23,11 @@ router.get("/config", (req, res) => {
 });
 
 // Route de création d'intention de paiement
-router.post("/create-payment-intent", async (req, res) => {
+router.post('/create-payment-intent', async (req, res) => {
   try {
     const total = req.body.amount; // on recup le montant de la commande
     const paymentIntent = await stripe.paymentIntents.create({
-      currency: "eur",
+      currency: 'eur',
       amount: total * 100,
       automatic_payment_methods: {
         enabled: true,

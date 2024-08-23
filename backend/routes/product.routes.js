@@ -1,6 +1,5 @@
 import express from "express";
 import productModel from "../models/product.model.js";
-import { isAuthentificated, isAdmin } from "../auth/auth.js";
 
 const router = express.Router();
 
@@ -42,11 +41,6 @@ router.get("/search", async (req, res) => {
   }
 });
 
-router.delete("/delete/all", async (req, res) => {
-  const result = await productModel.deleteMany({});
-  console.log(result);
-});
-
 router.delete("/:id", async (req, res) => {
   try {
     const id = req.params.id; // id du produit à supprimer
@@ -55,7 +49,6 @@ router.delete("/:id", async (req, res) => {
     if (productToDelete) {
       const productName = productToDelete.name; // On stocke le nom du produit à supprimer pour l'afficher dans le message de confirmation
       const deletedProduct = await productModel.deleteOne({ _id: id }); // On supprime le produit
-      console.log(deletedProduct);
       const productsUpdated = await productModel.find(); // On recupère la nouvelle liste de produits pour actualiser directement coté front
       res.status(200).json({
         message: `${productName} a bien été supprimé.`,
@@ -73,10 +66,8 @@ router.delete("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   try {
     const newProduct = req.body;
-    console.log(newProduct);
     const productAdded = await productModel.create(newProduct);
     if (productAdded) {
-      console.log(productAdded);
       res.status(201).json({
         message: `${productAdded.name} a été ajouté avec succés.`,
         product: productAdded,
@@ -96,8 +87,6 @@ router.post("/", async (req, res) => {
 router.patch("/update/:id", async (req, res) => {
   const id = req.params.id;
   const data = req.body;
-  console.log(id);
-  console.log(data);
   try {
     const productToUpdate = await productModel.findOneAndUpdate(
       { _id: id },
@@ -105,9 +94,7 @@ router.patch("/update/:id", async (req, res) => {
       { new: true }
     );
     if (productToUpdate) {
-      console.log("ok");
       const newProducts = await productModel.find();
-      console.log("ok");
       res.status(200).json({
         products: newProducts,
         message: "Mise à jour effectuée avec succés.",
